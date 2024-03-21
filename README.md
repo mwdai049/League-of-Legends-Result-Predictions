@@ -17,14 +17,13 @@ To start, I filtered the rows to only keep player data. That is, I performed a q
 <iframe
   src="assets/uni-1.html"
   width="800"
-  height="600"
+  height="400"
   frameborder="0"
 ></iframe>
-
 <iframe
   src="assets/uni-2.html"
   width="800"
-  height="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
@@ -33,13 +32,12 @@ To start, I filtered the rows to only keep player data. That is, I performed a q
 <iframe
   src="assets/bivar-1.html"
   width="800"
-  height="600"
+  height="400"
   frameborder="0"
 ></iframe>
-
 <iframe
   src="assets/bivar-2.html"
-  width="1000"
-  height="600"
+  width="800"
+  height="400"
   frameborder="0"
 ></iframe>
