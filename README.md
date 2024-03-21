@@ -12,12 +12,35 @@ Descripions of Columns:
 
 ## Data Cleaning and Exploratory Data Analysis
 
-To start, I filtered the rows to only keep player data. That is, I performed a query on the DataFrame to only keep rows in which `position` did not equal 'team', meaning it was either 'top', 'bot', 'mid', 'sup', or 'jng'. I also filtered the columns to only keep the ones of interest: `gameid'`, `league`, `side`, `position`, `playerid`, `champion`, `result`, `earnedgold`, `earnedgoldshare`, `goldat10`, `golddiffat10`, `goldat15`, `golddiffat15`. Lastly, I added columns `more_gold_at_10` and `more_gold_at_15` which denoted `True` if this player had more gold than their lane opponent 10 or 15 minutes into the match, and `False` if they had less.
+To start, I filtered the rows to only keep player data. That is, I performed a query on the DataFrame to only keep rows in which `position` did not equal 'team', meaning it was either 'top', 'bot', 'mid', 'sup', or 'jng'. I also filtered the columns to only keep the ones of interest: `gameid`, `league`, `side`, `position`, `playerid`, `champion`, `result`, `earnedgold`, `earnedgoldshare`, `goldat10`, `golddiffat10`, `goldat15`, `golddiffat15`. Lastly, I added columns `more_gold_at_10` and `more_gold_at_15` which denoted `True` if this player had more gold than their lane opponent 10 or 15 minutes into the match, and `False` if they had less.
 
 #### Univariate Analysis
 
 <iframe
   src="assets/uni-1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/uni-2.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Bivariate Analysis
+
+<iframe
+  src="assets/bivar-1.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/bivar-2.html"
   width="800"
   height="600"
   frameborder="0"
