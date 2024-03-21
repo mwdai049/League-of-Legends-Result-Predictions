@@ -6,7 +6,7 @@ by Monica Dai (mwdai@ucsd.edu)
 
 ## Introduction
 
-The data used in this project is League of Legends 2023 Esports stats found on [Oracle's Elixir](https://oracleselixir.com/). The original dataset contains 125904 rows and 131 columns. Each 12 rows in the dataset corresponds to one match, in which the first 10 are individual players' data and the remaining two are rows of aggregrated team data. In this project, I focus my attention on data regarding gold stats. This theme emerged from my curiosity towards how gold can impact the outcomes of games, as I do not have any conscious understanding of this despite having played similar games before. I explore how players in each lane may have different dynamics with gold stats, and look into how this relates to the final victory or loss.
+The data used in this project is League of Legends 2023 Esports stats found on [Oracle's Elixir](https://oracleselixir.com/). The original dataset contains 125904 rows and 131 columns. Each 12 rows in the dataset corresponds to one match, in which the first 10 are individual players' data and the remaining two are rows of aggregrated team data. In this project, I focus my attention on data regarding gold stats. This theme emerged from my curiosity towards how gold can impact the outcomes of games, as I do not have any real understanding of this despite having shallow experience with similar games before. I explore how players in each lane may have different dynamics with gold stats, and look into how this relates to the final victory or loss.
 
 Descripions of Columns:
 
@@ -18,15 +18,15 @@ To start, I filtered the rows to only keep player data. That is, I performed a q
 
 <iframe
   src="assets/uni-1.html"
-  width="800"
-  height="600"
+  width="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
 <iframe
   src="assets/uni-2.html"
-  width="800"
-  height="600"
+  width="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
