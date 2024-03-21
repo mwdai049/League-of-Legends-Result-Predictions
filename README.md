@@ -1,5 +1,3 @@
-# League-of-Legends-Result-Predictions
-
 by Monica Dai (mwdai@ucsd.edu)
 
 ---
