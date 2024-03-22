@@ -155,7 +155,7 @@ However, a friend who watches professional League of Legends matches told me tha
   frameborder="0"
 ></iframe>
 
-The above figures show the distribution of leagues by missingness of gold. The test statistic used in this permutation test was TVD of league distribution between gold missing and not missing. The observed test statistic was calculated to be 0.9916, and the below histogram shows the distribution of simulated TVDs compared to the observed TVD. As can be seen, no simulated TVDs were nearly as high as what was observed, so the p-value is 0, which is lower than the significance level of 0.05. We thus **reject** the null hypothesis which postulates that the missingness of `goldat15` is not dependent on `league`. 
+The above figures show the distribution of leagues by missingness of gold. The test statistic used in this permutation test was TVD of league distribution between gold missing and not missing. The observed test statistic was calculated to be 0.9915, and the below histogram shows the distribution of simulated TVDs compared to the observed TVD. As can be seen, no simulated TVDs were nearly as high as what was observed, so the p-value is 0, which is lower than the significance level of 0.05. We thus **reject** the null hypothesis which postulates that the missingness of `goldat15` is not dependent on `league`. 
 
 <iframe
   src="assets/mar-distribution.html"
@@ -235,31 +235,33 @@ For my Baseline Model, I decided to use a RandomForestClassifier on the two colu
 |        1 |       3877 |       5531 |
 |        1 |       3045 |       4892 |
 
-My model achieved a training accuracy of 84.33%, and a testing accuracy of 61.11%. My current model is better than a random guess, but I wouldn't say it is a "good" model since there are other features I may incorporate to increase the model's accuracy on unseen data.
+My model achieved a training accuracy of 84.55%, and a testing accuracy of 59.89%. My current model is better than a random guess, but I wouldn't say it is a "good" model since there are other features I may incorporate to increase the model's accuracy on unseen data.
 
 ## Final Model
 
 In the Final Model, I aim to increase my model's performance by introducing the following new features:
 
-`champion`: One-Hot Encoded, certain Bottom Lane champions may have an advantage over others, increasing the possibility of victory.
+`champion`: `OneHotEncoder()`, certain Bottom Lane champions may have an advantage over others, increasing the possibility of victory.
 
-`moregoldat10`, `moregoldat15`: these features are binary, where 1 corresponds to having more gold than lane opponent and 0 corresponds to not having more gold than lane opponent. This feature indicates an early gold advantage over the opponent, whereas the original features of my Baseline Model did not provide such a comparison. As observed from previous parts, early gold advantages may be an important factor in determining victory.
+`golddiffat10`, `golddiffat15`: `Binarizer()` & `MinMaxScaler()`, these features are binary, where 1 corresponds to having more gold than lane opponent and 0 corresponds to not having more gold than lane opponent. This feature indicates an early gold advantage over the opponent, whereas the original features of my Baseline Model did not provide such a comparison. As observed from previous parts, early gold advantages may be an important factor in determining victory.
 
-`goldshareat10`, `goldshareat15`: these quantitative features indicate the Bottom Laner's share of gold within their team. If the value of this feature is much higher or lower than average, it may indicate that something in the teamplay is abnormal, e.g. someone is carrying, and that the team is at disadvantage.
+`goldshareat10`, `goldshareat15`: `FunctionTransformer()` & `MinMaxScaler()`, these quantitative features indicate the Bottom Laner's share of gold within their team. If the value of this feature is much higher or lower than average, it may indicate that something in the teamplay is abnormal, e.g. someone is carrying, and that the team is at disadvantage.
 
-`killsat15`: kill data is a direct indicator of advantage, so more kills may suggest higher win rate. Only including kills at the 15 minute mark to restrict to early game data.
+`killsat15`: `MinMaxScaler()`, kill data is a direct indicator of advantage, so more kills may suggest higher win rate. Only including kills at the 15 minute mark to restrict to early game data.
 
-**Model and Hyperparameter Choice**: I chose to continue using a RandomForestClassifier for my Final Model since I had a classification problem. I chose optimal hyperparameters using GridSearchCV, and the results were max_depth = 10, max_features = sqrt, min_samples_leaf = 1, min_samples_split = 5, n_estimators = 100. Tuning these parameters slightly increased my test accuracy.
+Applied MinMaxScaler() to the numerical features to handle different scales and magnitudes between gold, goldshares, binary features, and kills.
 
-**Final Model Performance**: My Final Model achieved training accuracy of 85.69% and testing accuracy of 70.59%. It demonstrated a 9.48% increase compared to the Baseline Model's testing accuracy. Incorporating new features which provided comparisons in terms of advantage seemed to have indeed increased the model's ability to predict outcomes. A potential inherent limitation to this model is that it only makes predictions on early game data, and does not have access to other factors which are also heavy influencers of a team's victory, such as baron kills and souls.
+**Model and Hyperparameter Choice**: I chose to continue using a RandomForestClassifier for my Final Model since I had a classification problem. I chose optimal hyperparameters using GridSearchCV, and the results were 'rfc__max_depth': 20, 'rfc__max_features': 'sqrt', 'rfc__min_samples_split': 2, 'rfc__n_estimators': 100. Tuning these parameters actually slightly decreased my test accuracy, likely due to random chance.
 
-Below is a confusion matrix of my Final Model's predictions. Of 4,413 predictions, it correctly predicted the victory of 1,562 teams and loss of 1553 teams. It incorrectly predicted that 677 teams would lose even though they actually won, and predicted that 621 teams would win even though they actually lost.
+**Final Model Performance**: My Final Model achieved training accuracy of 98.87% and testing accuracy of 71.20%. It demonstrated a 11.31% increase compared to the Baseline Model's testing accuracy. Incorporating new features which provided comparisons in terms of advantage seemed to have indeed increased the model's ability to predict outcomes. A potential inherent limitation to this model is that it only makes predictions on early game data, and does not have access to other factors which are also heavy influencers of a team's victory, such as baron kills and souls.
+
+Below is a confusion matrix of my Final Model's predictions. Of 4,413 predictions, it correctly predicted the victory of 1,561 teams and loss of 1581 teams. It incorrectly predicted that 653 teams would lose even though they actually won, and predicted that 618 teams would win even though they actually lost.
 
 ![Confusion Matrix](assets/confusion-matrix.png)
 
 ## Fairness Analysis
 
-**Question**: Does my model achieve accuracy parity for Bottom Laners on both sides, red and blue?
+**Question**: Does my model perform similarly for Bottom Laners on both sides, red and blue?
 
 **Null Hypothesis**: My model is fair. Its accuracy for predicting the result of blue teams and red teams are roughly the same, and any differences are due to random chance.
 
@@ -269,7 +271,7 @@ Below is a confusion matrix of my Final Model's predictions. Of 4,413 prediction
 
 **Significance Level**: 0.05
 
-After performing a permutation test to assess the accuracy parity of my model, the following histogram depicts the distribution of differences in accuracy. The p-value was 0.481, which is greater than the significance level, so we **fail to reject** the null hypothesis which poses that my model is fair and that any differences in accuracy between Bottom Laners on blue teams and red teams is due to random chance.
+After performing a permutation test to assess the accuracy parity of my model, the following histogram depicts the distribution of differences in accuracy. The p-value was 0.665, which is greater than the significance level, so we **fail to reject** the null hypothesis which poses that my model is fair and that any differences in accuracy between Bottom Laners on blue teams and red teams is due to random chance.
 
 <iframe
   src="assets/fairness.html"
