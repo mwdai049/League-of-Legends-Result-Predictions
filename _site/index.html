@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>League-of-Legends-Result-Predictions</title>
+<title>Predicting League of Legends Results with Early Game Gold Data | League-of-Legends-Result-Predictions</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="League-of-Legends-Result-Predictions" />
+<meta property="og:title" content="Predicting League of Legends Results with Early Game Gold Data" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="League-of-Legends-Result-Predictions" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="League-of-Legends-Result-Predictions" />
+<meta property="twitter:title" content="Predicting League of Legends Results with Early Game Gold Data" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","headline":"League-of-Legends-Result-Predictions","name":"League-of-Legends-Result-Predictions","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"WebSite","headline":"Predicting League of Legends Results with Early Game Gold Data","name":"League-of-Legends-Result-Predictions","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -40,7 +40,7 @@
     <a id="skip-to-content" href="#content">Skip to the content.</a>
 
     <header class="page-header" role="banner">
-      <h1 class="project-name">League-of-Legends-Result-Predictions</h1>
+      <h1 class="project-name">Predicting League of Legends Results with Early Game Gold Data</h1>
       <h2 class="project-tagline"></h2>
       
         <a href="https://github.com/mwdai049/League-of-Legends-Result-Predictions" class="btn">View on GitHub</a>
@@ -49,15 +49,19 @@
     </header>
 
     <main id="content" class="main-content" role="main">
-      <p>by Monica Dai (mwdai@ucsd.edu)</p>
+      <h1 id="predicting-league-of-legends-results-with-early-game-gold-data">Predicting League of Legends Results with Early Game Gold Data</h1>
+
+<p>by Monica Dai (mwdai@ucsd.edu)</p>
 
 <hr />
 
 <h2 id="introduction">Introduction</h2>
 
-<p>The data used in this project is League of Legends 2023 Esports stats found on <a href="https://oracleselixir.com/">Oracle’s Elixir</a>. The original dataset contains 125904 rows and 131 columns. Each 12 rows in the dataset corresponds to one game, in which the first 10 are individual players’ data and the remaining 2 are rows of aggregrated team data. In this project, I focus my attention on data regarding gold stats. This theme emerged from my curiosity towards how gold can impact the outcomes of games, especially in terms of early game data. I explore how players in each lane may demonstrate different dynamics with regards to gold stats, and look into how this relates to the final victory or loss.</p>
+<p>Gold is the essential resource in League of Legends. Players need gold to purchase items that make them stronger, which helps them kill opponents and push towards victory in each game. In particular, the two teams’ difference in gold starts to matter early on in the game because the team with the gold lead can use that advantage to snowball into larger leads. The decisive role that gold has in the outcome of the game led me to focus my attention on data regarding gold stats, especially in terms of early game data.</p>
 
-<p>Specifically, my question is: “Which lane’s early game gold advantage is most indicative of victory?” This question may be of interest towards those who aren’t so familiar with League of Legends gameplay dynamics, and can clarify some objectives that can better ensure victories.</p>
+<p>In this project, I explore how players in each lane may demonstrate different dynamics with regards to gold stats, and look into how this relates to the final victory or loss. The data I used in this project is League of Legends 2023 Esports stats found on <a href="https://oracleselixir.com/">Oracle’s Elixir</a>. The original dataset contains 125,904 rows and 131 columns. Each 12 rows in the dataset corresponds to one game, in which the first 10 are individual players’ data and the remaining 2 are rows of aggregated team data. Specifically, my question is: “Which lane’s early game gold advantage is most indicative of victory?” The answer to this question will inform those who aren’t so familiar with League of Legends about its gameplay dynamics, positions that have the most impact on the game, and objectives that can better ensure victories.</p>
+
+<p>The columns of interest to me are <code class="language-plaintext highlighter-rouge">gameid</code>, <code class="language-plaintext highlighter-rouge">league</code>, <code class="language-plaintext highlighter-rouge">side</code>, <code class="language-plaintext highlighter-rouge">position</code>, <code class="language-plaintext highlighter-rouge">playerid</code>, <code class="language-plaintext highlighter-rouge">champion</code>, <code class="language-plaintext highlighter-rouge">result</code>, <code class="language-plaintext highlighter-rouge">kills</code>, <code class="language-plaintext highlighter-rouge">goldat10</code>, <code class="language-plaintext highlighter-rouge">golddiffat10</code>, <code class="language-plaintext highlighter-rouge">goldat15</code>, <code class="language-plaintext highlighter-rouge">golddiffat15</code>. After dropping unrelated rows and columns, I am left with 88,260 rows and 12 columns.</p>
 
 <p><strong>Description of Columns:</strong></p>
 
@@ -89,7 +93,7 @@
 
 <p>To start, I filtered the rows to only keep player data. That is, I performed a query on the DataFrame to only keep rows in which <code class="language-plaintext highlighter-rouge">position</code> did not equal ‘team’, meaning it was either ‘top’, ‘jng’, ‘mid’, ‘bot’, or ‘sup’. I also filtered the columns to only keep the ones of interest: <code class="language-plaintext highlighter-rouge">gameid</code>, <code class="language-plaintext highlighter-rouge">league</code>, <code class="language-plaintext highlighter-rouge">side</code>, <code class="language-plaintext highlighter-rouge">position</code>, <code class="language-plaintext highlighter-rouge">playerid</code>, <code class="language-plaintext highlighter-rouge">champion</code>, <code class="language-plaintext highlighter-rouge">result</code>, <code class="language-plaintext highlighter-rouge">kills</code>, <code class="language-plaintext highlighter-rouge">goldat10</code>, <code class="language-plaintext highlighter-rouge">golddiffat10</code>, <code class="language-plaintext highlighter-rouge">goldat15</code>, <code class="language-plaintext highlighter-rouge">golddiffat15</code>. Lastly, I added columns <code class="language-plaintext highlighter-rouge">more_gold_at_10</code> and <code class="language-plaintext highlighter-rouge">more_gold_at_15</code> which denoted <code class="language-plaintext highlighter-rouge">True</code> if this player had more gold than their lane opponent 10 or 15 minutes into the game, and <code class="language-plaintext highlighter-rouge">False</code> if they had less. These two columns made grouping analyses easier.</p>
 
-<p>I observed 16,660 rows in which gold data at 10 and 15 minutes was missing. I chose to drop these rows because I believe imputations would not be most appropriate in this scenario. I’m interested in the gold data of each player and how such data relates to the result, so if I were to perform imputations, I would want to fill in the null values which would closely resemble true values. To do so, I would ideally probabilistically impute conditional on <code class="language-plaintext highlighter-rouge">playerid</code>, since an individual’s own data likely reflects their performance closest. I would need to do this for both the player themselves and their opponent, but that would be really random and there isn’t enough data to impute on. That is, not many players with missing data had rows in which this data was not missing. The random imputation could also introduce data that doesn’t reflect reality, thus interfering with further steps of analysis and predictions. Thus, I chose to drop these 16,660 rows with missing gold data, leaving me with 88,260 rows of player data.</p>
+<p>I observed 16,660 rows in which gold data at 10 and 15 minutes was missing. I chose to drop these rows because I believe imputations would not be most appropriate in this scenario. I’m interested in the gold data of each player and how such data relates to the result, so if I were to perform imputations, I would want to fill in the null values which would closely resemble true values. To do so, I would ideally probabilistically impute conditional on <code class="language-plaintext highlighter-rouge">playerid</code>, since an individual’s own data likely reflects their performance closest. However, players may have different performance when playing with different teammates and against different opponents, so arbitrarily imputing values could introduce impurities that don’t reflect reality and interfere with further steps of analysis and predictions. Furthermore, there isn’t enough data to impute on. That is, not many players with missing data had rows in which this data was not missing. Thus, I chose to drop these 16,660 rows with missing gold data in later parts of analysis, leaving me with 88,260 rows of player data.</p>
 
 <p>The first five rows to the processed DataFrame are as follows:</p>
 
